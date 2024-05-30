@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from .form import TaskForm
+from .models import Task
 
 # Create your views here.
 
 
 def homePage(request):
-    return render(request, 'task/homePage.html')
+    tasks = Task.objects.all()
+    return render(request, 'task/homePage.html', {'tasks': tasks})
 
 
 def addTask(request):

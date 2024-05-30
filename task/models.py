@@ -10,3 +10,6 @@ class Task(models.Model):
         default=False, verbose_name="Is task completed?")
     task_assigned = models.DateField(auto_now_add=True)
     category = models.ManyToManyField(Category, verbose_name="Task Category")
+
+    def __str__(self) -> str:
+        return self.title
