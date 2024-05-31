@@ -5,7 +5,7 @@ from django.db import models
 
 class Category(models.Model):
     category_name = models.CharField(
-        max_length=255, error_messages="Category is required and must be under 255 characters", unique=True)
+        max_length=255, unique=True)
 
     def __str__(self) -> str:
         return self.category_name

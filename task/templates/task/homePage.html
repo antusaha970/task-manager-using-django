@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
 {% block mainContent %}
-    <section class="container">
+    <section class="container mb-4 mt-2">
         {% if tasks %}
-            <h2 class="fw-bold my-3">Available tasks</h2>
+            <h2 class="fw-bold my-3 text-center">Available tasks</h2>
             <div class="row">
                 {% for task in tasks %}
                     <div class="col-12 col-sm-6 col-md-4">
@@ -17,6 +17,10 @@
                                 <h5 class="card-title">{{ task.title |title }}</h5>
                                 <p class="card-text">{{ task.description }}</p>
                                 <p>
+                                    Task Assigned:
+                                    <span class="fw-bold">{{ task.task_assigned }}</span>
+                                </p>
+                                <p>
                                     category :
                                     {% for cat in task.category.all %}
                                         <span class="text-muted ms-2">{{ cat.category_name }}</span>
@@ -24,8 +28,8 @@
                                     {% endfor %}
                                 </p>
                                 {% if not task.is_completed %}
-                                    <a href="#" class="btn btn-dark me-2">Edit</a>
-                                    <a href="#" class="btn btn-danger me-2">Delete</a>
+                                    <a href="{% url "editTask" task.id %}" class="btn btn-dark me-2">Edit</a>
+                                    <a href="{% url "deleteTask" task.id %}" class="btn btn-danger me-2">Delete</a>
                                 {% else %}
                                     <button class="btn btn-success me-2" disabled>Completed</button>
                                 {% endif %}
@@ -35,7 +39,12 @@
                 {% endfor %}
             </div>
         {% else %}
-            <h1 class="mt-5 pt-5">Now task available for now</h1>
+            <div class="text-center">
+                <h1 class="my-5 pt-5 fw-bold text-center">No task available for now</h1>
+                <a href="{% url "addTask" %}">
+                    <button class="btn btn-success">Add task from here</button>
+                </a>
+            </div>
         {% endif %}
     </section>
 {% endblock mainContent %}
